@@ -14,6 +14,7 @@ const defaultSchema = new mongoose.Schema({
 });
 
 const uri = process.env.MONGO_URI || "";
+console.log(uri)
 const client = new MongoClient(uri);
 
 async function run() {
@@ -35,7 +36,6 @@ async function collectionExists(id) {
   const res = await client.db("test").listCollections().toArray();
 
   const filteredRes = res.filter((item) => item.name === `${id}sections`);
-  console.log(filteredRes);
   return filteredRes.length > 0;
 }
 

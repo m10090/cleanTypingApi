@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node index.js",
+    "build": "bun index.js",
     "dev": "DEV=TRUE nodemon index.js"
   },
   "keywords": [],
