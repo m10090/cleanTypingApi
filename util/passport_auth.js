@@ -6,7 +6,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/redirect",
+      callbackURL: "https://clean-typing-api.vercel.app/auth/google/redirect",
     },
     (accessToken, refreshToken, profile, done) => {
       done(null, profile);

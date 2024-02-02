@@ -3,6 +3,7 @@ const app = express();
 const passport = require("passport");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
 
 require("./util/passport_auth");
 
@@ -21,10 +22,11 @@ app.use(
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-    maxAge: 1000 * 60*60*24*7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true,
   }),
 );
+app.use(morgan("tiny"));
 app.use(cookieParser(process.env.SECRET_KEY));
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
@@ -34,11 +36,9 @@ app.use(express.json());
 app.use("/auth", authRoute);
 app.use("/private", private_);
 
-if (process.env.DEV) {
-  app.get("/", (req, res) => {
-    res.json({ mes: "hello world", user: req.user });
-  });
-}
+app.get("/", (req, res) => {
+  res.status(200).json({ mes: "hello world", user: req.user });
+});
 
 app.listen(3000, () => {
   console.log("listening on port 3000");

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "bun index.js",
-    "dev": "DEV=TRUE nodemon index.js"
+    "dev": "DEV=TRUE nodemon index.js",
+    "build" : "bun index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,8 +16,10 @@
     "express": "^4.17.1",
     "express-session": "^1.18.0",
     "mongoose": "^8.1.1",
+    "morgan": "^1.10.0",
     "nodemon": "^3.0.3",
     "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "vercel": "^33.4.1"
   }
 }
