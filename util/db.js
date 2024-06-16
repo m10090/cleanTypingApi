@@ -2,13 +2,8 @@ const { MongoClient } = require("mongodb");
 
 const uri = process.env.MONGO_URI + "typing-logs" || "";
 let client;
-try {
-  client = new MongoClient(uri);
-  console.log("Connected to Mongo")
-} catch (err) {
-  console.error("Error creating MongoClient:", err.message);
-  exit(1);
-}
+client = new MongoClient(uri);
+console.log("Connected to Mongo");
 
 async function run() {
   try {
