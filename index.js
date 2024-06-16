@@ -14,7 +14,7 @@ const authRoute = require("./routes/auth");
 const _private = require("./routes/private");
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URL.slice(0,-1),
+  origin: process.env.FRONTEND_URL.slice(0, -1),
   credentials: true,
   optionsSuccessStatus: 200,
 };
@@ -24,11 +24,13 @@ app.use(
   session({
     secret: process.env.SECRET_KEY,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI + "express-session",
+      mongoUrl: process.env.MONGO_URI,
+      collectionName: "sessions",
+      ttl: 60 * 60 * 24 * 7,
     }),
   }),
 );
@@ -44,9 +46,10 @@ app.use("/auth", authRoute);
 app.use("/private", _private);
 
 app.get("/", (req, res) => {
+  console.log("I am working ");
   res.status(200).json({ mes: "hello world", user: req.user });
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT ?? 3000, () => {
   console.log("listening on port 3000");
 });

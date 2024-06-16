@@ -1,6 +1,5 @@
 FROM oven/bun:debian
 
-# Install dependencies
 
 # Copy the current directory contents into the container at /app
 COPY . /app
@@ -9,10 +8,12 @@ WORKDIR /app
 
 SHELL [ "bash" , "-c"]
 
+# Install dependencies
+
 RUN ["bun", "install"]
 
 
-EXPOSE 3000
+EXPOSE $PORT 
 
-CMD ["bun" ,"run","build"]
+CMD ["bun" ,"run", "build"]
 
