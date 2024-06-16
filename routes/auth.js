@@ -6,8 +6,8 @@ router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 router.get(
   "/google/redirect",
   passport.authenticate("google", { failureRedirect: "/google" }),
-  (req, res) => {
-    res.redirect(process.env.FRONTEND_URL+'?loggedIn=True');
+  (_, res) => {
+    res.redirect(process.env.FRONTEND_URL+'?loggedIn=true');
   },
 );
 

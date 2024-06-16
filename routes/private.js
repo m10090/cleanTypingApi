@@ -9,7 +9,6 @@ function isAuthenticated(req, res, next) {
   res.status(400).json({ msg: "login Required" });
 }
 Router.post("/logSection", isAuthenticated, (req, res) => {
-  console.log(req.body);
   db.logIt(req.body, req.user).then(()=>console.log("logged"));
   res.status(200).json({ msg: "ok" });
 });

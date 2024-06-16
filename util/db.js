@@ -1,21 +1,14 @@
 const { MongoClient } = require("mongodb");
-const mongoose = require("mongoose");
 
-const logSectionSchema = new mongoose.Schema({
-  current: String,
-  written: String,
-  time: Number,
-  lastSpaceIndex: { type: Number, default: undefined },
-});
-
-const defaultSchema = new mongoose.Schema({
-  date: Number,
-  data: [logSectionSchema],
-});
-
-const uri = process.env.MONGO_URI || "";
-console.log(uri)
-const client = new MongoClient(uri);
+const uri = process.env.MONGO_URI + "typing-logs" || "";
+let client;
+try {
+  client = new MongoClient(uri);
+  console.log("Connected to Mongo")
+} catch (err) {
+  console.error("Error creating MongoClient:", err.message);
+  exit(1);
+}
 
 async function run() {
   try {
@@ -31,7 +24,6 @@ run();
 async function createUserSectionCollection(id) {
   await client.db("test").createCollection(`${id}sections`).catch(console.log);
 }
-
 async function collectionExists(id) {
   const res = await client.db("test").listCollections().toArray();
 
